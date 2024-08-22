@@ -10,7 +10,7 @@ export default function Home() {
     <Card
       title={
         <Flex justify="space-between" gap={16} align="center">
-          <Typography.Text>Todos</Typography.Text>
+          <Typography.Text style={{ fontSize: 20 }}>Todos</Typography.Text>
           <EditTodoButton type="primary" icon={<PlusOutlined />}>
             Create TODO
           </EditTodoButton>
