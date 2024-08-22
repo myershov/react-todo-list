@@ -1,9 +1,10 @@
 'use client'
 
-import { CheckCircleFilled, ClockCircleFilled, DeleteFilled } from '@ant-design/icons'
+import { CheckCircleFilled, ClockCircleFilled, CloseCircleFilled, DeleteFilled } from '@ant-design/icons'
 import { useDeleteTodoMutation, useEditTodoMutation, useGetTodosQuery } from '@api/todo'
 import { EditTodoButton } from '@components/UI/Buttons/EditTodoButton'
 import { ITodo } from '@models/Todo'
+import { Status } from '@utils/constants'
 import { Button, List, ListProps, message, Space } from 'antd'
 import { useCallback, useEffect } from 'react'
 
@@ -30,7 +31,7 @@ export const TodoListItem: React.FC<TodoListItemProps> = ({ todo }) => {
   const [deleteTodo] = useDeleteTodoMutation()
 
   const handleComplete = useCallback(() => {
-    editTodo({ ...todo, status: todo?.status === 'completed' ? 'pending' : 'completed' })
+    editTodo({ ...todo, status: todo?.status === Status.Completed ? Status.Pending : Status.Completed })
   }, [todo, editTodo])
 
   const handleDelete = useCallback(() => {
@@ -43,17 +44,19 @@ export const TodoListItem: React.FC<TodoListItemProps> = ({ todo }) => {
         title={todo?.title}
         description={todo?.description}
         avatar={
-          todo?.status === 'completed' ? (
+          todo?.status === Status.Completed ? (
             <CheckCircleFilled style={{ color: '#52c41a', fontSize: 32 }} />
-          ) : (
+          ) : todo?.status === Status.Pending ? (
             <ClockCircleFilled style={{ color: '#faad14', fontSize: 32 }} />
+          ) : (
+            <CloseCircleFilled style={{ color: '#ff4d4f', fontSize: 32 }} />
           )
         }
       />
 
       <Space>
-        <Button type="primary" ghost={todo?.status === 'completed'} onClick={handleComplete}>
-          {todo?.status === 'completed' ? 'Uncomplete' : 'Complete'}
+        <Button type="primary" ghost={todo?.status === Status.Completed} onClick={handleComplete}>
+          {todo?.status === Status.Completed ? 'Uncomplete' : 'Complete'}
         </Button>
         <EditTodoButton todo={todo?._id} />
         <Button type="primary" danger icon={<DeleteFilled />} onClick={handleDelete} />
