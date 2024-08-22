@@ -18,6 +18,15 @@
       }
     ],
     "paths": {
+      "@app/*": ["./app/*"],
+      "@components/*": ["./components/*"],
+      "@styles/*": ["./styles/*"],
+      "@utils/*": ["./utils/*"],
+      "@api/*": ["./modules/api/*"],
+      "@lib/*": ["./modules/lib/*"],
+      "@models/*": ["./modules/models/*"],
+      "@store/*": ["./modules/store/*"],
+      "@modules/*": ["./modules/*"],
       "@/*": ["./*"]
     }
   },
