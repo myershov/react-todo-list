@@ -1,9 +1,12 @@
+import { todoApi } from '@api/todo'
 import { configureStore } from '@reduxjs/toolkit'
 
 export const makeStore = () => {
   return configureStore({
-    reducer: {},
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware()
+    reducer: {
+      [todoApi.reducerPath]: todoApi.reducer
+    },
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(todoApi.middleware)
   })
 }
 
